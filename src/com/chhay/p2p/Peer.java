@@ -23,6 +23,7 @@ public class Peer {
         System.out.println(" Peers to receive messages from (s = skip): ");
         String input = bufferedReader.readLine();
         String[] inputValues = input.split(" ");
+
         if (!input.equals("s")) for (int i=0; i < inputValues.length;  i++) {
             String[] address = inputValues[i].split(":");
             Socket socket = null;
@@ -33,8 +34,8 @@ public class Peer {
                 if (socket != null) socket.close();
                 else System.out.println("invalid input, skipping to next step.");
             }
-            communicate(bufferedReader, username, serverThread);
         }
+        communicate(bufferedReader, username, serverThread);
     }
 
     public void communicate(BufferedReader bufferedReader, String username, ServerThread serverThread){
@@ -50,7 +51,7 @@ public class Peer {
                     updateListenToPeers(bufferedReader, username, serverThread);
                 } else {
                     StringWriter stringWriter = new StringWriter();
-                    Json.createWriter(stringWriter).writeObject(Json.createObjectBuilder().add("username", username).add("messages", message).build());
+                    Json.createWriter(stringWriter).writeObject(Json.createObjectBuilder().add("username", username).add("message", message).build());
                     System.out.println("StringWriter: " + stringWriter.toString());
                     serverThread.sendMessage(stringWriter.toString());
                 }

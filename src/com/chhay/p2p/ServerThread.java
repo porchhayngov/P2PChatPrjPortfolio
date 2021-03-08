@@ -25,9 +25,9 @@ public class ServerThread extends Thread {
         }
     }
 
-    void sendMessage(String messages){
+    void sendMessage(String message){
         try{
-            serverThreadThreads.forEach(t-> t.getPrintWriter().println(messages));
+            serverThreadThreads.forEach(t-> t.getPrintWriter().println(message));
         } catch(Exception e){
             e.printStackTrace();
         }
