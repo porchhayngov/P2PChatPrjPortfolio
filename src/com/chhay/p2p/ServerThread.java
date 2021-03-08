@@ -14,7 +14,23 @@ public class ServerThread extends Thread {
     }
 
     public void run(){
+        try{
+            while (true) {
+                ServerThreadThread serverThreadThread = new ServerThreadThread(serverSocket.accept(), this);
+                serverThreadThreads.add(serverThreadThread);
+                serverThreadThread.start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    void sendMessage(String messages){
+        try{
+            serverThreadThreads.forEach(t-> t.getPrintWriter().println(messages));
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     public Set<ServerThreadThread> getServerThreadThreads() { return serverThreadThreads; }
